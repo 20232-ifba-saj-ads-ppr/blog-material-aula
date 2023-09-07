@@ -1,6 +1,6 @@
 ---
 icon: edit
-date: 2023-03-30 21:00:00.00 -3
+date: 2023-09-12 21:00:00.00 -3
 tag:
   - revisao
   - poo
@@ -1637,15 +1637,14 @@ Conta c = new ContaInvestimento();
 Tributavel t = new ContaInvestimento();
 ```
 
-Perceba que o código pode parecer estranho, pois a interface não declara método algum, só herda os
-métodos abstratos declarados nas outras interfaces. Ao mesmo tempo que uma interface pode herdar de mais de uma outra interface, classes só podem possuir uma classe mãe (herança simples).
+Perceba que o código pode parecer estranho, pois a interface não declara método algum, só herda os métodos abstratos declarados nas outras interfaces. Ao mesmo tempo que uma interface pode herdar de mais de uma outra interface, classes só podem possuir uma classe mãe (herança simples).
 
 <figure>
 
 ```plantuml
 @startuml
 interface Conta
-interface  Tributavel
+interface Tributavel
 interface ContaTributavel extends Conta, Tributavel
 class ContaInvestimento implements ContaTributavel
 @enduml
