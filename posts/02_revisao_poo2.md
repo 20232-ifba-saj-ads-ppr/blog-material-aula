@@ -74,8 +74,10 @@ animalMamifero.voar();//erro
 ```java
 Mamifero animalMamifero = new Morcego();
 animalMamifero.mamar();
-Morcego batman = (Morcego)animalMamifero;
-batman.voar();
+if (animalMamifero instanceof Morcego){
+    Morcego batman = (Morcego) animalMamifero;
+    batman.voar();
+}
 ```
 - Este tipo de operação recebe o nome de **TYPE CAST**
 
