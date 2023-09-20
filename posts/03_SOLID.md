@@ -197,10 +197,10 @@ public class FolhaDePagamento{
     private double saldo;
     
     public double calcular(ContratoClt contratoClt  ){
-        this.saldo = contratoClt.salario();
+        this.saldo += contratoClt.salario();
     }
     public double calcular(Estagio estagio ){
-        this.saldo = estagio.bolsaAuxilio();
+        this.saldo += estagio.bolsaAuxilio();
     }
 }
 ```
@@ -257,7 +257,7 @@ public class FolhaDePagamento{
     protected double saldo;
     
     public double calcular(Remuneravel funcionario){
-        this.saldo = funcionario.remuneracao();
+        this.saldo += funcionario.remuneracao();
     }
 }
 ```
@@ -350,7 +350,7 @@ public class ArquivoTxt extends Arquivo{
 }
  
 public class GeradorDeArquivos{
-   public void gerarArquivos(IList<Arquivo> arquivos){
+   public void gerarArquivos(List<Arquivo> arquivos){
       for(Arquivo arquivo : arquivos){
         arquivo.gerar();
       }
@@ -547,6 +547,12 @@ A aplicação do princípio de inversão de dependência permite que a `ClasseA`
 
 Em tempo de execução, o fluxo de execução do programa permanece inalterado, mas a introdução de interfaces significa que diferentes implementações dessas interfaces podem ser facilmente conectadas.
 
+Sem Inversão da Dependência
+@[code](./code/solid/ServicoV1.java)
+
+Com Inversão da Dependência
+@[code](./code/solid/ServicoV2.java)
+
 <figure>
 
 ```plantuml
@@ -589,6 +595,7 @@ Os principais motivos para programar para uma interface/classe abstrata são:
 - *Fica mais fácil realizar testes* - É fácil substituir um objeto real de produção por um falso que facilite o teste;
 
 Além disso interfaces facilitam a redução do acoplamento do código e ajudam a encapsular o código.
+
 
 ### Como podemos obter a inversão da dependência?
 
