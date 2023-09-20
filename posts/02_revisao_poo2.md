@@ -74,8 +74,10 @@ animalMamifero.voar();//erro
 ```java
 Mamifero animalMamifero = new Morcego();
 animalMamifero.mamar();
-Morcego batman = (Morcego)animalMamifero;
-batman.voar();
+if (animalMamifero instanceof Morcego){
+    Morcego batman = (Morcego) animalMamifero;
+    batman.voar();
+}
 ```
 - Este tipo de operação recebe o nome de **TYPE CAST**
 
@@ -579,14 +581,12 @@ class Emprestimo extends Servico {
 }
 ```
 
-Para os objetos da classe `Emprestimo`, devemos chamar o método `calculaTaxaDeEmprestimo()`.
-Para todos os outros serviços, devemos chamar o método `calculaTaxa()`.
+Para os objetos da classe `Emprestimo`, devemos chamar o método `calculaTaxaDeEmprestimo()`. Para todos os outros serviços, devemos chamar o método `calculaTaxa()`.
 
-Mesmo assim, nada impediria que o método `calculaTaxa()` fosse chamado em um objeto da
-classe `Emprestimo`, pois ela herda esse método da classe `Servico`. Dessa forma, existe o risco de alguém erroneamente chamar o método incorreto.
+Mesmo assim, nada impediria que o método `calculaTaxa()` fosse chamado em um objeto da classe `Emprestimo`, pois ela herda esse método da classe `Servico`. Dessa forma, existe o risco de alguém erroneamente chamar o método incorreto.
 
-Seria mais seguro "substituir" a implementação do método `calculaTaxa()` herdado da classe
-`Servico` na classe `Emprestimo`. Para isso, basta escrever o método `calculaTaxa()` também na classe `Emprestimo` com a mesma assinatura que ele possui na classe `Servico`.
+Seria mais seguro "substituir" a implementação do método `calculaTaxa()` herdado da classe `Servico` na classe `Emprestimo`. Para isso, basta escrever o método `calculaTaxa()` também na classe `Emprestimo` com a mesma assinatura que ele possui na classe `Servico`.
+
 ```java
 class Emprestimo extends Servico {
     // ATRIBUTOS
@@ -907,8 +907,7 @@ Note que o uso de herança aumenta o acoplamento entre as classes, isto é, o qu
 
 Por exemplo, imagine se tivermos que mudar algo na nossa classe Funcionario, mas não quiséssemos que todos os funcionários sofressem a mesma mudança. Precisaríamos passar por cada uma das filhas de Funcionario verificando se ela se comporta como deveria ou se devemos sobrescrever o tal método modificado.
 
-Esse é um problema da herança, e não do polimorfismo, que resolveremos mais tarde com a
-ajuda de Interfaces.
+Esse é um problema da herança, e não do polimorfismo, que resolveremos mais tarde com a ajuda de Interfaces.
 :::
 
 
@@ -1000,8 +999,7 @@ Seguindo essa abordagem, a classe `ControleDePonto` precisaria de um par de mét
 
 Os procedimentos de registro de entrada e saída são idênticos para todos os funcionários. Consequentemente, qualquer alteração na lógica desses procedimentos implicaria na modificação de todos os métodos da classe `ControleDePonto`.
 
-Além disso, se o banco definir um novo tipo de funcionário, dois novos métodos praticamente
-idênticos aos que já existem teriam de ser adicionados na classe `ControleDePonto`. Analogamente, se um cargo deixar de existir, os dois métodos correspondentes da classe `ControleDePonto` deverão ser retirados.
+Além disso, se o banco definir um novo tipo de funcionário, dois novos métodos praticamente idênticos aos que já existem teriam de ser adicionados na classe `ControleDePonto`. Analogamente, se um cargo deixar de existir, os dois métodos correspondentes da classe `ControleDePonto` deverão ser retirados.
 
 #### Modelagem dos funcionários
 
@@ -1033,8 +1031,7 @@ Além de gerar reaproveitamento de código, a utilização de herança permite q
 
 Em outras palavras, a herança entre as classes que modelam os funcionários permite que objetos criados a partir das classes `Gerente` ou `Telefonista` sejam tratados como objetos da classe `Funcionario`.
 
-No código da classe `Gerente` utilizamos a palavra **extends**. Ela pode ser interpretada como a
-expressão: **É UM** ou **É UMA**.
+No código da classe `Gerente` utilizamos a palavra **extends**. Ela pode ser interpretada como a expressão: **É UM** ou **É UMA**.
 
 ```java
 class Gerente extends Funcionario
@@ -1266,29 +1263,18 @@ Fique claro que a nossa decisão de transformar `Funcionario` em uma classe abst
 ##### Métodos abstratos
 Se o método `getBonificacao` não fosse reescrito, ele seria herdado da classe mãe, fazendo com que devolvesse o salário mais 20%.
 
-Levando em consideração que cada funcionário em nosso sistema tem uma regra totalmente diferente para
-ser bonificado, faz algum sentido ter esse método na classe `Funcionario`? Será que existe uma bonificação
-padrão para todo tipo de `Funcionario`? Parece que não, cada classe filha terá um método diferente de bonificação pois, de acordo com nosso sistema, não existe uma regra geral: queremos que cada pessoa que escreve
-a classe de um `Funcionario` diferente (subclasses de `Funcionario`) reescreva o método `getBonificacao` de
-acordo com as suas regras.
+Levando em consideração que cada funcionário em nosso sistema tem uma regra totalmente diferente para ser bonificado, faz algum sentido ter esse método na classe `Funcionario`? Será que existe uma bonificação padrão para todo tipo de `Funcionario`? Parece que não, cada classe filha terá um método diferente de bonificação pois, de acordo com nosso sistema, não existe uma regra geral: queremos que cada pessoa que escreve a classe de um `Funcionario` diferente (subclasses de `Funcionario`) reescreva o método `getBonificacao` de acordo com as suas regras.
 
-Poderíamos, então, jogar fora esse método da classe `Funcionario`? O problema é que, se ele não existisse,
-não poderíamos chamar o método apenas com uma referência a um `Funcionario`, pois ninguém garante
-que essa referência aponta para um objeto que possui esse método. Será que então devemos retornar um
-código, como um número negativo? Isso não resolve o problema: se esquecermos de reescrever esse método,
-teremos dados errados sendo utilizados como bônus.
+Poderíamos, então, jogar fora esse método da classe `Funcionario`? O problema é que, se ele não existisse, não poderíamos chamar o método apenas com uma referência a um `Funcionario`, pois ninguém garante que essa referência aponta para um objeto que possui esse método. Será que então devemos retornar um código, como um número negativo? Isso não resolve o problema: se esquecermos de reescrever esse método, teremos dados errados sendo utilizados como bônus.
 
-Existe um recurso em Java que, em uma classe abstrata, podemos escrever que determinado método será
-sempre escrito pelas classes filhas. Isto é, um **método abstrato**.
+Existe um recurso em Java que, em uma classe abstrata, podemos escrever que determinado método será sempre escrito pelas classes filhas. Isto é, um **método abstrato**.
 
-Ele indica que todas as classes filhas (concretas, isto é, que não forem abstratas) devem reescrever esse método
-ou não compilarão. É como se você herdasse a responsabilidade de ter aquele método.
+Ele indica que todas as classes filhas (concretas, isto é, que não forem abstratas) devem reescrever esse método ou não compilarão. É como se você herdasse a responsabilidade de ter aquele método.
 
 ::: tip Como declarar um método abstrato
 Às vezes, não fica claro como declarar um método abstrato.
 
-Basta escrever a palavra chave *abstract* na assinatura do mesmo e colocar um ponto e vírgula
-em vez de abre e fecha chaves!
+Basta escrever a palavra chave *abstract* na assinatura do mesmo e colocar um ponto e vírgula em vez de abre e fecha chaves!
 :::
 
 ```java
