@@ -5,6 +5,7 @@ tag:
   - framwork
 category:
   - exercicio
+  - entrega
 order: 6
 ---
 
