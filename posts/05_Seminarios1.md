@@ -11,5 +11,15 @@ order: 5
 
 # Seminários  1
 
+|Padrão|Aluno|
+|--|--|
+|Factory Method|@LucasSouza31|
+|Abstract Factory|@Jgab602|
+|Builder|@codeFumaca|
+|Prototype|@mateusmarquesifba|
+|Singleton|@lucasif18|
+|Multiton|@lucasif18|
+|Object Pool|@lucasif18|
+
 
 [Entrega](https://classroom.github.com/a/kaLiFNQc)
